@@ -1,0 +1,147 @@
+<section class="digiy-welcome-audio">
+  <div class="digiy-audio-card">
+    <div>
+      <p class="digiy-eyebrow">🎧 Message de bienvenue</p>
+      <h3>Bienvenue dans ton espace DIGIY</h3>
+      <p>
+        Avant de t’inscrire, écoute ce court message. 
+        DIGIY t’explique simplement comment ton module va t’aider à travailler,
+        garder ton client, recevoir ton argent directement et avancer avec confiance.
+      </p>
+    </div>
+
+    <div class="digiy-audio-actions">
+      <button type="button" onclick="digiySpeakWelcome()">
+        🎧 Écouter le message
+      </button>
+      <button type="button" onclick="digiyStopWelcome()" class="ghost">
+        ⏹ Stop
+      </button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .digiy-welcome-audio{
+    margin:18px auto;
+    max-width:980px;
+    padding:0 14px;
+  }
+
+  .digiy-audio-card{
+    background:#fffaf0;
+    border:1px solid rgba(184,134,11,.28);
+    border-radius:22px;
+    padding:18px;
+    box-shadow:0 10px 28px rgba(45,35,10,.08);
+    display:flex;
+    gap:16px;
+    align-items:center;
+    justify-content:space-between;
+  }
+
+  .digiy-eyebrow{
+    margin:0 0 6px;
+    font-weight:800;
+    color:#8a6410;
+    font-size:.9rem;
+  }
+
+  .digiy-audio-card h3{
+    margin:0 0 8px;
+    font-size:1.25rem;
+    color:#1f2d1f;
+  }
+
+  .digiy-audio-card p{
+    margin:0;
+    color:#4b4436;
+    line-height:1.5;
+    font-size:1rem;
+  }
+
+  .digiy-audio-actions{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+  }
+
+  .digiy-audio-actions button{
+    border:0;
+    border-radius:999px;
+    padding:12px 16px;
+    font-weight:900;
+    cursor:pointer;
+    background:#167a3f;
+    color:white;
+    box-shadow:0 8px 18px rgba(22,122,63,.18);
+  }
+
+  .digiy-audio-actions button.ghost{
+    background:#f3ead7;
+    color:#3d321d;
+    box-shadow:none;
+  }
+
+  @media(max-width:720px){
+    .digiy-audio-card{
+      display:block;
+    }
+
+    .digiy-audio-actions{
+      justify-content:flex-start;
+      margin-top:14px;
+    }
+
+    .digiy-audio-actions button{
+      width:100%;
+      font-size:1rem;
+    }
+  }
+</style>
+
+<script>
+  const DIGIY_WELCOME_TEXT = `
+Bienvenue dans DIGIYLYFE.
+Ici, tu n’es pas dans une plateforme qui prend ton client.
+Tu entres dans une architecture simple pour mettre ton activité dans ta main.
+
+Ton module t’aide à présenter ton métier, recevoir les demandes, organiser ton travail,
+préparer tes messages, et garder le contact direct avec tes clients.
+
+DIGIY ne prend pas de commission sur ton travail.
+Ton nom reste ton nom.
+Ton argent reste ton argent.
+Ton client reste ton client.
+
+Choisis ton abonnement, suis les étapes tranquillement,
+et envoie ta preuve de paiement.
+Ton accès sera préparé proprement.
+
+Bienvenue dans la famille DIGIY.
+On avance pierre par pierre, avec confiance.
+  `;
+
+  function digiySpeakWelcome(){
+    if (!("speechSynthesis" in window)) {
+      alert("La lecture audio n'est pas disponible sur ce téléphone.");
+      return;
+    }
+
+    window.speechSynthesis.cancel();
+
+    const msg = new SpeechSynthesisUtterance(DIGIY_WELCOME_TEXT);
+    msg.lang = "fr-FR";
+    msg.rate = 0.92;
+    msg.pitch = 1;
+
+    window.speechSynthesis.speak(msg);
+  }
+
+  function digiyStopWelcome(){
+    if ("speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+    }
+  }
+</script>
